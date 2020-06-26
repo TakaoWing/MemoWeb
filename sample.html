@@ -1,0 +1,31 @@
+<html>
+<haed>
+  <meta charset="UTF-8" />
+</haed>
+<script>
+ 
+ 
+function downloadText() {
+  
+  var string = 'ダウンロードできたかな？';
+  var title = 'testfile.txt';
+  var blobType = 'text/plain';
+ 
+  var linkTagId = 'getLocal';
+  var linkTag = document.getElementById(linkTagId);
+  var linkTagAttr =  ['href','download'];
+ 
+  var stringObject = new Blob([string], { type: blobType });
+  var objectURL = window.URL.createObjectURL(stringObject);   
+ 
+  linkTag.setAttribute(linkTagAttr[0],objectURL);
+  linkTag.setAttribute(linkTagAttr[1],title); 
+ 
+ 
+};
+ 
+</script>
+<body>
+  <a id="getLocal" href="#" onClick="downloadText()">ダウンロードしてね</a>
+</body>
+</html>

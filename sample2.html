@@ -1,0 +1,23 @@
+/* HTML側 */
+<input type="file" id="inputfile" accept=".txt" />
+
+/* JavaScript 側 */
+<script>
+    var inputfile = document.getElementById("inputfile");
+    // ファイル選択ダイアログが選択されたときにイベントが発生
+    inputfile.addEventListener('change', (event) => {
+    const target = event.target;
+    const files = target.files;
+    const file = files[0];
+    
+    // ファイル名を出力
+    console.log(file.name);
+    
+    // ファイル内容を出力
+    const reader = new FileReader();
+    reader.addEventListener('load', (event) => {
+        console.log(reader.result);
+    });
+    reader.readAsText(file);
+    });
+</script>

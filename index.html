@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>メモアプリ</h1>
+
+        <form name="form1">
+            <textarea name="textarea1"></textarea>
+        </form>
+        <a id="getLocal" href="#"  onclick="clickBtn1()">ダウンロード</a>
+
+        <input type="file" id="inputfile" accept=".txt" />
+
+        <script>
+        var inputfile = document.getElementById("inputfile");
+        // ファイル選択ダイアログが選択されたときにイベントが発生
+        inputfile.addEventListener('change', (event) => {
+            const target = event.target;
+            const files = target.files;
+            const file = files[0];
+            
+            // ファイル名を出力
+            console.log(file.name);
+            
+            // ファイル内容を出力
+            const reader = new FileReader();
+            reader.addEventListener('load', (event) => {
+                console.log(reader.result);
+                document.form1.textarea1.value = reader.result;
+            });
+            reader.readAsText(file);
+
+        });
+        </script>
+
+    </body>
+    <script>
+        function clickBtn1(){
+
+            // 値を取得
+            var string = document.form1.textarea1.value; // form1のtextarea1の入力された値を取得
+
+            var title = 'testfile.txt'; // ファイルの名前をtestfile.txtに
+            var blobType = 'text/plain'; // ファイルの保存形式をtextに設定
+            
+            var linkTagId = 'getLocal';
+            var linkTag = document.getElementById(linkTagId);
+            var linkTagAttr =  ['href','download'];
+            
+            var stringObject = new Blob([string], { type: blobType });
+            var objectURL = window.URL.createObjectURL(stringObject);   
+            
+            linkTag.setAttribute(linkTagAttr[0],objectURL);
+            linkTag.setAttribute(linkTagAttr[1],title); 
+
+            document.form1.textarea1.value = "";
+        }
+        </script>
+</html>
